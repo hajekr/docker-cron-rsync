@@ -11,10 +11,10 @@ services:
       RSYNC_CRONTAB: "*/15 * * * *"
       RSYNC_OPTIONS: >-
         --archive --verbose --delete --progress
-        -e "ssh -i /run/secrets/rsync-ssh-key -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/dev/null"
+        -e "ssh -i /run/secrets/rsync-ssh-key -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/dev/null -o WarnWeakCrypto=no"
         /backup/ user@nas:backup/
     volumes:
-      - ./backup:/backup
+      - /backup-on-host:/backup
 
 secrets:
   rsync-ssh-key:
