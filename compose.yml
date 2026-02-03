@@ -7,18 +7,12 @@ services:
       - source: rsync-ssh-key
         target: /run/secrets/rsync-ssh-key
         mode: 0600
-
-      # optional
-      # - source: known_hosts
-      #   target: /run/secrets/known_hosts
-      #   mode: 0644
-
     environment:
       RSYNC_CRONTAB: "*/15 * * * *"
       RSYNC_OPTIONS: >-
-        -avz --delete
+        --archive --verbose --delete --progress
         -e "ssh -i /run/secrets/rsync-ssh-key -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/dev/null"
-        toto@example.com:backup/*.tgz /backup/
+        /backup/ user@nas:backup/
     volumes:
       - ./backup:/backup
 
