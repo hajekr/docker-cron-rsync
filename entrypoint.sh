@@ -14,7 +14,7 @@ if [ -f /run/secrets/rsync_ssh_key ]; then
 fi
 
 # Generate crontab from env
-echo "${RSYNC_CRONTAB} rsync ${RSYNC_OPTIONS} 2>&1" > /etc/crontabs/root
+echo "${RSYNC_CRONTAB} rsync ${RSYNC_OPTIONS} > /dev/stdout 2>/dev/stderr" > /etc/crontabs/root
 
 # Start cron (dcron example)
 crond -f -L /dev/stdout
