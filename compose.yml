@@ -1,6 +1,6 @@
 services:
   rsync:
-    image: glide/cron-rsync:1.0
+    image: romanhajek/cron-rsync
     build: .
     volumes:
       - ~/.ssh:/host-ssh:ro
