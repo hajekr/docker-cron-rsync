@@ -1,7 +1,7 @@
 # Docker cron rsync
 
 - **Inspired by** [Glideh/docker-cron-rsync](https://github.com/Glideh/docker-cron-rsync)
-- Dockerized rsync backup to e.g., NAS.
+- Dockerized scheduled rsync backup to e.g., NAS.
 - SSH key is mounted as a secret.
 - Output from rsync is redirected to stdout, so it can be monitored in Docker logs.
 
