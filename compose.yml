@@ -1,10 +1,27 @@
+version: "3.9"
+
 services:
   rsync:
     image: romanhajek/cron-rsync
-    build: .
-    volumes:
-      - ~/.ssh:/host-ssh:ro
-      - ./backup:/backup
+    secrets:
+      - source: rsync-ssh-key
+        target: /run/secrets/rsync-ssh-key
+        mode: 0600
+
+      # optional
+      # - source: known_hosts
+      #   target: /run/secrets/known_hosts
+      #   mode: 0644
+
     environment:
-      RSYNC_CRONTAB: "* * * * *"
-      RSYNC_OPTIONS: "-tv toto@example.com:backup/*.tgz /backup"
+      RSYNC_CRONTAB: "*/15 * * * *"
+      RSYNC_OPTIONS: >-
+        -avz --delete
+        -e "ssh -i /run/secrets/rsync-ssh-key -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/dev/null"
+        toto@example.com:backup/*.tgz /backup/
+    volumes:
+      - ./backup:/backup
+
+secrets:
+  rsync-ssh-key:
+    external: true

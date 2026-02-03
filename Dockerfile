@@ -1,14 +1,15 @@
 FROM alpine:3
 
-ENV CRONTAB_ENTRY=""
+RUN apk add --no-cache \
+    rsync \
+    openssh-client \
+    dcron
 
-RUN set -x; \
-    apk add --no-cache --update rsync sudo openssh-client ca-certificates \
-    && rm -rf /tmp/* \
-    && rm -rf /var/cache/apk/*
+# Create .ssh dir with correct permissions
+RUN mkdir -p /root/.ssh && \
+    chmod 700 /root/.ssh
 
-COPY rsync-entrypoint.sh /entrypoint.d/rsync.sh
 COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
-ENTRYPOINT ["sh", "/entrypoint.sh"]
-CMD ["crond", "-f", "-l", "0"]
+ENTRYPOINT ["/entrypoint.sh"]
