@@ -14,7 +14,8 @@ if [ -f /run/secrets/rsync_ssh_key ]; then
 fi
 
 # Generate crontab from env
-echo "${RSYNC_CRONTAB} rsync ${RSYNC_OPTIONS} > /dev/stdout 2>/dev/stderr" > /etc/crontabs/root
+echo "${RSYNC_CRONTAB} rsync ${RSYNC_OPTIONS}" > /etc/crontabs/root
 
-# Start cron (dcron example)
-crond -f -L /dev/stdout
+# Start crond in foreground + log its own messages to stdout
+# -l 5–8 = less verbose; try -l 2 or -l 0 for maximum verbosity during debugging
+crond -f -L /dev/stdout -l 5
