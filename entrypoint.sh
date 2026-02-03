@@ -18,4 +18,4 @@ echo "${RSYNC_CRONTAB} rsync ${RSYNC_OPTIONS} > /proc/1/fd/1 2>/proc/1/fd/2" > /
 
 # Start crond in foreground + log its own messages to stdout
 # -l 5–8 = less verbose; try -l 2 or -l 0 for maximum verbosity during debugging
-crond -f -L /dev/stdout -l 5
+crond -f -L /dev/stdout -l 2
