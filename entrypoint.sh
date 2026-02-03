@@ -14,7 +14,7 @@ if [ -f /run/secrets/rsync_ssh_key ]; then
 fi
 
 # Generate crontab from env
-echo "${RSYNC_CRONTAB} rsync ${RSYNC_OPTIONS}" > /etc/crontabs/root
+echo "${RSYNC_CRONTAB} rsync ${RSYNC_OPTIONS} > /proc/1/fd/1 2>/proc/1/fd/2" > /etc/crontabs/root
 
 # Start crond in foreground + log its own messages to stdout
 # -l 5–8 = less verbose; try -l 2 or -l 0 for maximum verbosity during debugging
