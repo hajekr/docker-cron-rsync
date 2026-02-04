@@ -1,3 +1,5 @@
+[![GitHub](https://img.shields.io/badge/GitHub-Source%20code-blue?logo=github)](https://github.com/hajekr/docker-cron-rsync)
+
 # Docker cron rsync
 
 - **Inspired by** [Glideh/docker-cron-rsync](https://github.com/Glideh/docker-cron-rsync)
